@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="stylesheet" href="style.css">
+  
+  <title>Advice generator app</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    .attribution { font-size: 11px; text-align: center; }
+    .attribution a { color: hsl(228, 45%, 44%); }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <small> 
+      Advice #<span class="advice-number">103</span>
+    </small>
+
+    <p>
+      " <span class="advice">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ut cumque, expedita inventore illo magnam pariatur.</span> "
+     </p>
+
+     <img src="./images/pattern-divider-desktop.svg" alt="" class="desktop-pattern"/>
+     <img src="./images/pattern-divider-mobile.svg" alt="" class="mobile-pattern"/>
+
+    <button class="dice-holder"
+            role="button" 
+            aria-label="Fetch new advice">
+     <img 
+     src="./images/icon-dice.svg" 
+     alt="dice" 
+     class="btn"
+     />
+    </button>
+  </div>
+
+  <!-- "Advice text goes here" -->
+  
+  <!-- <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+    Coded by <a href="#">Your Name Here</a>.
+  </div> -->
+
+  <script>
+ 
+
+  function fetchAdvice() {
+
+  fetch('https://api.adviceslip.com/advice')
+    .then((response) => response.json())
+    .then(({slip}) => {
+      console.log(slip);
+
+      const adviceNumber = 
+      document.querySelector('.advice-number');
+      const advice = document.querySelector('.advice');
+      
+      adviceNumber.textContent = slip.id;
+      advice.textContent = slip.advice;
+    });
+}
+
+//  run function when page loads
+
+  fetchAdvice();
+
+  const dice = document.querySelector('.dice-holder');
+  
+  dice.addEventListener('click', fetchAdvice);
+
+</script>
+
+</body>
+</html>
